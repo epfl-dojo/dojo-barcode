@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  Button,
   Platform,
   ScrollView,
   StyleSheet,
@@ -14,53 +15,66 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
+    title: 'Welcome',
     header: null,
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
+
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
+            <Text style={styles.logoText}>EPFL barcode scanner</Text>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
+              source={ require('../assets/images/logo.png') }
+              style={styles.welcomeLogo}
+            />
+            <Image
+            source={
+              __DEV__
+              ? require('../assets/images/robot-dev.png')
+              : require('../assets/images/robot-prod.png')
+            }
+            style={styles.welcomeImage}
             />
           </View>
 
           <View style={styles.getStartedContainer}>
+            {this._renderUnderHeavyDev()}
+
             {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>EPFL barcode scanner</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
 
           </View>
 
           <View style={styles.helpContainer}>
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}> reload </Text>
+              <Text style={styles.helpLinkText}>reload</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Please head to the "Scanner" tab to scan a new barcode.</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
+          <Text style={styles.tabBarInfoText}>Find EPFL yellow stickers and try it out!</Text>
+          <Button title="go to scan" onPress={() => navigate('Scanner', { name: 'ScannerScreen' }) } style={styles.goToScanScreen}  />
         </View>
       </View>
     );
   }
 
+  _renderUnderHeavyDev() {
+    const headToGithubButton = (
+      <Text onPress={this._handleHeadToGithubRepo} style={styles.helpLinkText}>
+        GitHub
+      </Text>
+    );
+    return (
+      <Text style={styles.developmentModeText}>
+        This app is in heavy development. Please consider helping us on {headToGithubButton}.
+      </Text>
+    );
+  }
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
@@ -83,6 +97,10 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
+
+  _handleHeadToGithubRepo = () => {
+    WebBrowser.openBrowserAsync('https://github.com/epfl-dojo/dojo-barcode');
+  };
 
   _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
@@ -115,11 +133,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
   },
+  welcomeLogo: {
+    width: 200,
+    resizeMode: 'contain',
+    marginLeft: -10,
+    marginTop: 0,
+  },
   welcomeImage: {
     width: 100,
     height: 80,
     resizeMode: 'contain',
-    marginTop: 3,
+    marginTop: 0,
     marginLeft: -10,
   },
   getStartedContainer: {
@@ -129,6 +153,8 @@ const styles = StyleSheet.create({
   homeScreenFilename: {
     marginVertical: 7,
   },
+  goToScanScreen: {
+  },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
   },
@@ -136,6 +162,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
     paddingHorizontal: 4,
+  },
+  logoText: {
+    fontSize: 24,
+    textAlign: 'center',
   },
   getStartedText: {
     fontSize: 17,
@@ -165,6 +195,7 @@ const styles = StyleSheet.create({
   },
   tabBarInfoText: {
     fontSize: 17,
+    marginBottom: 17,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
   },

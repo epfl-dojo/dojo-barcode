@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "test-xde",
+    "name": "EPFLBarcodeScanner",
     "description": "No description",
-    "slug": "test-xde",
+    "slug": "EPFLBarcodeScanner",
     "privacy": "public",
     "sdkVersion": "22.0.0",
     "version": "1.0.0",

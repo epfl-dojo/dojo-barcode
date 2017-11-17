@@ -18,8 +18,8 @@
     "flow-bin": "0.53.0",
     "jest-expo": "^22.0.0"
   },
-  "name": "test-xde",
-  "version": "0.0.0",
-  "description": "Hello Expo!",
-  "author": null
+  "name": "EPFLBarcodeScanner",
+  "version": "0.0.1",
+  "description": "A barcode scanner for EPFL inventory number",
+  "author": "epfl-dojo"
 }
