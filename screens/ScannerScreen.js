@@ -33,6 +33,7 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   _handleBarCodeRead = ({ type, data }) => {
+    debugger;
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   }
 }
