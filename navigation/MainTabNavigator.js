@@ -6,19 +6,28 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
+import DetailsScreen from '../screens/DetailsScreen';
 import ScannerScreen from '../screens/ScannerScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import HistoryScreen from '../screens/HistoryScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
+    /*
+    Details: {
+      screen: DetailsScreen,
+    },*/
     Scanner: {
       screen: ScannerScreen,
     },
     Settings: {
       screen: SettingsScreen,
+    },
+    History: {
+      screen: HistoryScreen,
     },
   },
   {

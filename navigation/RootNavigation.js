@@ -3,8 +3,16 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
+import DetailsScreen from '../screens/DetailsScreen';
+import ScannerScreen from '../screens/ScannerScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
+/*
+const ShowDetails = StackNavigator({
+  Scanner: {screen: ScannerScreen},
+  Details: {screen: DetailsScreen}
+})
+*/
 const RootStackNavigator = StackNavigator(
   {
     Main: {

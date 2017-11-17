@@ -2,10 +2,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
+import { StackNavigator } from 'react-navigation';
 
 export default class BarcodeScannerExample extends React.Component {
   state = {
     hasCameraPermission: null,
+    lastScannedBarCode: ""
+  }
+
+  static navigationOptions = {
+    title: "Details",
   }
 
   async componentWillMount() {
@@ -13,8 +19,17 @@ export default class BarcodeScannerExample extends React.Component {
     this.setState({hasCameraPermission: status === 'granted'});
     }
 
+  getInventoryData() {
+    const { lastScannedBarCode } = this.state;
+    console.log(lastScannedBarCode);
+    return <Text>toto{lastScannedBarCode}</Text>;
+  }
+
   render() {
+    console.log("Render again");
     const { hasCameraPermission } = this.state;
+    const lastScannedBarCode  = this.state.lastbarcoderead;
+    const { navigate } = this.props.navigation;
 
     if (hasCameraPermission === null) {
       return <Text>Requesting for camera permission</Text>;
@@ -23,6 +38,7 @@ export default class BarcodeScannerExample extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
+        {this.getInventoryData()}
           <BarCodeScanner
             onBarCodeRead={this._handleBarCodeRead}
             style={StyleSheet.absoluteFill}
@@ -33,7 +49,7 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   _handleBarCodeRead = ({ type, data }) => {
-    debugger;
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    this.setState({ lastScannedBarCode: data });
+    //navigate('Details', {scanInfo: data})
   }
 }
